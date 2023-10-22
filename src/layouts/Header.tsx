@@ -1,4 +1,3 @@
-import React from 'react';
 import logo from '/vite.svg';
 import { Link } from 'react-router-dom';
 
