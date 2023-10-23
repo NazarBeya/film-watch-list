@@ -37,14 +37,17 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
   );
 
   function addToWatched() {
-    setIsInWatched(true);
     setIsInWantToWatch(false);
+    setIsInWatched(true);
 
     const watchedMovies = JSON.parse(
       localStorage.getItem('watchedMovies') || '[]'
     );
-    watchedMovies.push(movie);
-    localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+
+    if (!watchedMovies.some((m: IMovie) => m.Title === movie.Title)) {
+      watchedMovies.push(movie);
+      localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+    }
 
     const wantToWatch = JSON.parse(localStorage.getItem('wantToWatch') || '[]');
     const updatedWantToWatch = wantToWatch.filter(
@@ -58,8 +61,11 @@ const Movie: React.FC<MovieProps> = ({ movie }) => {
     setIsInWantToWatch(true);
 
     const wantToWatch = JSON.parse(localStorage.getItem('wantToWatch') || '[]');
-    wantToWatch.push(movie);
-    localStorage.setItem('wantToWatch', JSON.stringify(wantToWatch));
+
+    if (!wantToWatch.some((m: IMovie) => m.Title === movie.Title)) {
+      wantToWatch.push(movie);
+      localStorage.setItem('wantToWatch', JSON.stringify(wantToWatch));
+    }
 
     const watchedMovies = JSON.parse(
       localStorage.getItem('watchedMovies') || '[]'
